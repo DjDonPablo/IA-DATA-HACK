@@ -1,8 +1,15 @@
 import gensim.downloader
 from nltk import word_tokenize
-import nltk
 import numpy as np
-nltk.download('punkt')
+from sklearn.pipeline import make_pipeline
+from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import classification_report
+from load_data import get_data
+# import nltk
+# nltk.download('punkt')
+
+file_path = './data/all.jsonl'
 
 
 # naive bayesian, n-grams, logistic regression, NN
@@ -27,6 +34,13 @@ class PreTrainedEmbedding:
 
 
 # embedder = PreTrainedEmbedding(pre_trained_embedding_models[0])
-
 # benchmark avec les modèles au dessus -> prendre le meilleur et faire un grid search, fine tuning
 # générer de la donnée 
+
+model = make_pipeline(CountVectorizer(tokenizer=word_tokenize, ngram_range=(1, 1)), TfidfTransformer(), LogisticRegression(random_state=42, class_weight='balanced', penalty='l2', max_iter=500))
+
+X_train, X_test, y_train, y_test = get_data(file_path)
+
+model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
+print("Classification Report:\n", classification_report(y_test, y_pred))
