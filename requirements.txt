@@ -1,0 +1,10 @@
+ipykernel
+pandas
+s3fs
+matplotlib
+wordcloud
+scikit-learn
+tensorflow
+transformers
+nltk
+tf-keras
