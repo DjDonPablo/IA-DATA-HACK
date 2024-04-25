@@ -9,6 +9,7 @@ Pour exécuter notre solution, il faut exécuter les commandes suivantes dans un
 foo@bar:~$ python -m venv env
 foo@bar:~$ source env/bin/activate
 (env) foo@bar:~$ pip install -r requirements.txt
+foo@bar:~$ python final_model.py
 foo@bar:~$ streamlit run app.py 
 ```
 
